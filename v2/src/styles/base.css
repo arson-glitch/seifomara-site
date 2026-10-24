@@ -9,8 +9,17 @@ body {
   color: var(--paper);
   font: 400 var(--step-0)/1.55 var(--font-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* fallback where clip is unsupported */
   overflow-x: clip;
 }
+
+/* The landscape desk always fits the window, so the page never scrolls (and never shows a scrollbar). */
+@media (min-width: 900px) and (min-aspect-ratio: 1001/1000) {
+  html, body { height: 100%; overflow: hidden; }
+}
+
+/* While SeifOS or a panel is open, the desk underneath must not scroll. */
+html.is-locked, html.is-locked body { overflow: hidden; }
 
 button { font: inherit; color: inherit; }
 a { color: inherit; text-underline-offset: 3px; }

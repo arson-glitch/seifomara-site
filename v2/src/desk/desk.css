@@ -2,6 +2,7 @@
   position: relative;
   min-height: 100dvh;
   padding-top: calc(var(--topbar-h) + env(safe-area-inset-top, 0px));
+  overflow: hidden; /* fallback where clip is unsupported */
   overflow: clip;
   background-color: var(--walnut);
   background-image:
@@ -78,7 +79,7 @@
 .desk-obj.is-open { z-index: 20; }
 .laptop { display: block; position: relative; }
 .laptop__deck { display: block; }
-.laptop__lid { position: absolute; inset: 0; display: block; transform-origin: 50% 100%; }
+.laptop__lid { position: absolute; inset: 0; display: block; transform-origin: 50% 0; }
 .lid__front, .lid__back { position: absolute; inset: 0; display: block; }
 .lid__back {
   transform: scaleY(-1);
@@ -87,12 +88,12 @@
   box-shadow: inset 0 0 0 1.5px #3a3c40;
 }
 .lid__screen {
-  position: absolute; left: 2.7%; right: 2.7%; top: 6%; bottom: 3.9%;
+  position: absolute; left: 2.7%; right: 2.7%; top: 3.9%; bottom: 6%;
   border-radius: 0.8%;
   background: #0d0e11;
 }
 .lid__camera {
-  position: absolute; left: 50%; bottom: 1.6%; width: 1.1%; aspect-ratio: 1;
+  position: absolute; left: 50%; top: 1.4%; width: 1.1%; aspect-ratio: 1;
   transform: translateX(-50%);
   border-radius: 50%; background: #2c2e33;
 }

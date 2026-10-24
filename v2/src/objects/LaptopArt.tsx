@@ -3,8 +3,8 @@ import { useId } from 'react'
 const LID = 'M20 0 H500 a20 20 0 0 1 20 20 V338 a20 20 0 0 1 -20 20 H20 a20 20 0 0 1 -20 -20 V20 a20 20 0 0 1 20 -20 Z'
 
 /**
- * Closed laptop seen from above: brushed aluminium lid, hinge along the bottom,
- * lamp light from the upper left, three stickers. 520 × 358 (30 × 20.6 cm).
+ * Closed laptop seen from above, viewer at the bottom edge: brushed aluminium lid,
+ * hinge along the top (far) edge, lamp light from the upper left, three stickers. 520 × 358 (30 × 20.6 cm).
  */
 export function LaptopLid() {
   const id = useId()
@@ -26,7 +26,7 @@ export function LaptopLid() {
           <stop offset="0.45" stopColor="#ffffff" stopOpacity="0.25" />
           <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id={`${id}hinge`} x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`${id}hinge`} x1="0" y1="1" x2="0" y2="0">
           <stop offset="0" stopColor="#8f9498" />
           <stop offset="0.45" stopColor="#7b8085" />
           <stop offset="1" stopColor="#5f6468" />
@@ -55,19 +55,19 @@ export function LaptopLid() {
         {/* inner shadow: a blurred dark rim just inside the edge */}
         <path d={LID} fill="none" stroke="#2c3034" strokeWidth="16" opacity="0.22" filter={`url(#${id}soft)`} />
 
-        {/* hinge along the bottom */}
-        <rect x="0" y="336" width="520" height="22" fill={`url(#${id}hinge)`} />
-        <line x1="0" y1="336.5" x2="520" y2="336.5" stroke="#4f5357" strokeWidth="1.2" />
-        <line x1="0" y1="338" x2="520" y2="338" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1" />
-        <rect x="44" y="343" width="86" height="7" rx="3.5" fill="#55595d" opacity="0.6" />
-        <rect x="390" y="343" width="86" height="7" rx="3.5" fill="#55595d" opacity="0.6" />
+        {/* hinge along the top (far) edge */}
+        <rect x="0" y="0" width="520" height="22" fill={`url(#${id}hinge)`} />
+        <line x1="0" y1="21.5" x2="520" y2="21.5" stroke="#4f5357" strokeWidth="1.2" />
+        <line x1="0" y1="23" x2="520" y2="23" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1" />
+        <rect x="44" y="8" width="86" height="7" rx="3.5" fill="#55595d" opacity="0.6" />
+        <rect x="390" y="8" width="86" height="7" rx="3.5" fill="#55595d" opacity="0.6" />
       </g>
 
-      {/* thumb notch on the opening edge */}
-      <path d="M226 0 H294 a6 6 0 0 1 -6 6 H232 a6 6 0 0 1 -6 -6 Z" fill="#8d9296" opacity="0.7" />
+      {/* thumb notch on the opening (near) edge */}
+      <path d="M226 358 H294 a6 6 0 0 0 -6 -6 H232 a6 6 0 0 0 -6 6 Z" fill="#8d9296" opacity="0.7" />
 
       {/* edge highlight on the lit (upper-left) side */}
-      <path d="M2.5 336 V20 a17.5 17.5 0 0 1 17.5 -17.5 H500" fill="none" stroke={`url(#${id}edge)`} strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M2.5 338 V20 a17.5 17.5 0 0 1 17.5 -17.5 H500" fill="none" stroke={`url(#${id}edge)`} strokeWidth="2.5" strokeLinecap="round" />
       <path d={LID} fill="none" stroke="#6f7478" strokeOpacity="0.55" />
 
       {/* IE University sticker (text, not the official logo) */}
@@ -108,7 +108,7 @@ export function LaptopLid() {
   )
 }
 
-/** The keyboard deck, seen when the lid is open. Hinge at the bottom, so the keys sit upside down to us. */
+/** The keyboard deck, seen when the lid is open: hinge at the top, keyboard below it, trackpad nearest the viewer. */
 export function LaptopDeck() {
   const id = useId()
   const rows = [14, 14, 14, 13, 12]
@@ -121,15 +121,16 @@ export function LaptopDeck() {
         </linearGradient>
       </defs>
       <path d={LID} fill={`url(#${id}d)`} />
-      <rect x="174" y="30" width="172" height="108" rx="10" fill="#b4b8bb" stroke="#9a9fa3" />
-      <rect x="34" y="160" width="452" height="170" rx="8" fill="#9ea3a7" />
+      <rect x="0" y="0" width="520" height="22" fill="#7b8085" />
+      <line x1="0" y1="22" x2="520" y2="22" stroke="#4f5357" strokeWidth="1.2" />
+      <rect x="34" y="36" width="452" height="170" rx="8" fill="#9ea3a7" />
+      <rect x="174" y="224" width="172" height="110" rx="10" fill="#b4b8bb" stroke="#9a9fa3" />
       {rows.map((n, r) => {
         const w = (436 - (n - 1) * 5) / n
         return Array.from({ length: n }, (_, i) => (
-          <rect key={`${r}-${i}`} x={42 + i * (w + 5)} y={168 + r * 32} width={w} height="27" rx="4" fill="#26282c" />
+          <rect key={`${r}-${i}`} x={42 + i * (w + 5)} y={44 + r * 32} width={w} height="27" rx="4" fill="#26282c" />
         ))
       })}
-      <rect x="0" y="336" width="520" height="22" fill="#7b8085" />
     </svg>
   )
 }

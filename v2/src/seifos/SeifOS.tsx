@@ -64,7 +64,9 @@ export function SeifOS({ phase, mode, section, projectId, getFromRect, onZoomedI
     ;(async () => {
       animate('.os__backdrop', { opacity: [0, 1] }, { duration: 0.45 })
       if (start) {
-        // keyframes, so the first painted frame already sits on the laptop screen
+        // keyframes, so the first painted frame already sits on the laptop screen. The tilted screen is a
+        // trapezoid, the flat one a rectangle: fade across while they still overlap so there is no jump.
+        animate(screen, { opacity: [mode === 'lid' ? 0 : 1, 1] }, { duration: mode === 'lid' ? 0.2 : 0 })
         await animate(
           screen,
           {
@@ -73,9 +75,8 @@ export function SeifOS({ phase, mode, section, projectId, getFromRect, onZoomedI
             scaleX: [start.scaleX, 1],
             scaleY: [start.scaleY, 1],
             borderRadius: [10, 0],
-            opacity: [1, 1],
           },
-          { duration: mode === 'lid' ? 0.55 : 0.42, ease: EASE },
+          { duration: mode === 'lid' ? 0.6 : 0.42, ease: EASE },
         )
       } else {
         await animate(screen, { opacity: [0, 1] }, { duration: 0.2 })
@@ -97,7 +98,9 @@ export function SeifOS({ phase, mode, section, projectId, getFromRect, onZoomedI
       const screen = scope.current.querySelector('.os__screen')
       animate('.os__backdrop', { opacity: 0 }, { duration: 0.4 })
       if (end) {
-        await animate(screen, { ...end, borderRadius: 10 }, { duration: mode === 'lid' ? 0.45 : 0.36, ease: [0.4, 0, 1, 1] })
+        const d = mode === 'lid' ? 0.5 : 0.36
+        if (mode === 'lid') animate(screen, { opacity: 0 }, { duration: 0.18, delay: d - 0.18 })
+        await animate(screen, { ...end, borderRadius: 10 }, { duration: d, ease: [0.4, 0, 1, 1] })
       } else {
         await animate(screen, { opacity: 0 }, { duration: 0.18 })
       }

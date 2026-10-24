@@ -58,6 +58,7 @@ function AppInner() {
     [dismissHint],
   )
 
+  const coming = view ? comingViews[view] : undefined
   const wantOs = view === 'os'
   useEffect(() => {
     if (wantOs && os.phase === 'closed') {
@@ -92,8 +93,12 @@ function AppInner() {
   const getFromRect = () =>
     (os.mode === 'lid' ? screenRef.current : lidRef.current)?.getBoundingClientRect() ?? null
 
+  const locked = Boolean(coming) || os.phase !== 'closed'
+  useEffect(() => {
+    document.documentElement.classList.toggle('is-locked', locked)
+  }, [locked])
+
   const osVisible = os.phase === 'zooming-in' || os.phase === 'open' || os.phase === 'zooming-out'
-  const coming = view ? comingViews[view] : undefined
   const subtitle = view === 'play' ? projects.find((p) => p.id === sub)?.title : undefined
 
   return (
