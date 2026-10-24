@@ -30,7 +30,7 @@ export function Desk({ open, insertedId, showHint, inert }: Props) {
           <LaptopLid />
         </DeskObject>
 
-        <DeskObject label={deskObjects.coffee.label} place={layout.coffee} photo={deskObjects.coffee.photo} onActivate={() => open('coffee')}>
+        <DeskObject label={deskObjects.coffee.label} place={layout.coffee} photo={deskObjects.coffee.photo} hit={{ inset: '10.4% 10.4% 8% 8%', round: true }} onActivate={() => open('coffee')}>
           <CoffeeArt />
         </DeskObject>
 
@@ -70,7 +70,7 @@ export function Desk({ open, insertedId, showHint, inert }: Props) {
         <DeskProp place={layout.racket}>
           <RacketArt />
         </DeskProp>
-        <DeskObject label={deskObjects.tennis.label} place={layout.ball} photo={deskObjects.tennis.photo} onActivate={() => open('tennis')}>
+        <DeskObject label={deskObjects.tennis.label} place={layout.ball} photo={deskObjects.tennis.photo} hit={{ inset: '2%', round: true }} onActivate={() => open('tennis')}>
           <BallArt />
         </DeskObject>
 

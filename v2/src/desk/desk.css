@@ -39,6 +39,7 @@
 
 .desk-obj {
   display: block;
+  pointer-events: none;
   padding: 0; margin: 0; border: 0;
   background: none;
   line-height: 0;
@@ -63,13 +64,20 @@
 }
 .desk-obj:active .desk-obj__art { transform: translate(0, -1px) scale(0.99); }
 .desk-obj:focus-visible { outline-offset: 6px; }
+.desk-obj__hit {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.desk-prop { pointer-events: none; }
 
 .art { display: block; width: 100%; height: auto; }
 .art--photo { object-fit: contain; }
 
 .handheld__cart {
   position: absolute; z-index: -1;
-  left: 23%; width: 54%; top: -15%;
+  left: 19.5%; width: 61%; top: -13%;
 }
 
 .steam path {
@@ -107,7 +115,7 @@
 @media (max-width: 899px), (max-aspect-ratio: 1/1) {
   .desk__stage {
     width: min(100%, 560px);
-    aspect-ratio: 390 / 1440;
+    aspect-ratio: 390 / 1060;
   }
   .desk-obj,
   .desk-prop,
