@@ -1,0 +1,39 @@
+:root {
+  --walnut: #6b4429;
+  --walnut-deep: #3e2717;
+  --walnut-light: #8a5a37;
+  --paper: #ede3cc;
+  --paper-ink: #2a1f17;
+  --paper-muted: #6d5d4c;
+  --clay: #b8582e;
+  --clay-deep: #8f3f1d;
+  --gb-grey: #c7c2b6;
+  --gb-ink: #2b2a33;
+  --gb-0: #0f380f;
+  --gb-1: #306230;
+  --gb-2: #8bac0f;
+  --gb-3: #9bbc0f;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, -apple-system, sans-serif;
+  --font-pixel: 'Silkscreen', ui-monospace, monospace;
+
+  /* type scale, 1.25 from 16px */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.563rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+
+  /* one lamp, upper left: every shadow falls down and to the right */
+  --shadow-rest: drop-shadow(1px 2px 1.5px rgb(25 12 4 / 0.45)) drop-shadow(6px 10px 12px rgb(25 12 4 / 0.35));
+  --shadow-lift: drop-shadow(2px 4px 2px rgb(25 12 4 / 0.35)) drop-shadow(12px 20px 22px rgb(25 12 4 / 0.32));
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --t-quick: 160ms;
+  --t-standard: 320ms;
+
+  --topbar-h: 56px;
+  color-scheme: dark;
+}
