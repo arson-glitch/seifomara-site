@@ -49,10 +49,10 @@ export const layout = {
 
 /** Where each cartridge lies on the desk, in the order of content/projects.ts. */
 export const cartridgeSpots: Placement[] = [
-  { size: 'cartridge', wide: { x: 1095, y: 720, r: -10, z: 3 }, compact: { x: 40, y: 246, r: -11, z: 5 } },
-  { size: 'cartridge', wide: { x: 1335, y: 640, r: 11, z: 3 }, compact: { x: 122, y: 300, r: 7, z: 3 } },
-  { size: 'cartridge', wide: { x: 1425, y: 330, r: -6, z: 3 }, compact: { x: 298, y: 424, r: -9, z: 5 } },
-  { size: 'cartridge', wide: { x: 1400, y: 120, r: 5, z: 3 }, compact: { x: 158, y: 372, r: 12, z: 3 } },
+  { size: 'cartridge', wide: { x: 1400, y: 520, r: -9, z: 3 }, compact: { x: 40, y: 246, r: -11, z: 5 } },
+  { size: 'cartridge', wide: { x: 1215, y: 615, r: 11, z: 3 }, compact: { x: 122, y: 300, r: 7, z: 3 } },
+  { size: 'cartridge', wide: { x: 1310, y: 128, r: 8, z: 3 }, compact: { x: 298, y: 424, r: -9, z: 5 } },
+  { size: 'cartridge', wide: { x: 1430, y: 300, r: -5, z: 3 }, compact: { x: 158, y: 372, r: 12, z: 3 } },
   // the "WEEK ??" cartridge was left on the notebook
   { size: 'cartridge', wide: { x: 440, y: 315, r: 8, z: 5 }, compact: { x: 66, y: 596, r: 9, z: 5 } },
 ]
