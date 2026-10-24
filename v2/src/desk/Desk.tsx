@@ -1,9 +1,10 @@
+import type { RefObject } from 'react'
 import { deskObjects } from '../content/objects'
 import { projects } from '../content/projects'
 import { CartridgeArt } from '../objects/CartridgeArt'
 import { CoffeeArt } from '../objects/CoffeeArt'
 import { HandheldArt } from '../objects/HandheldArt'
-import { LaptopLid } from '../objects/LaptopArt'
+import { LaptopModel, type LidPhase } from '../objects/Laptop'
 import { NotebookArt } from '../objects/NotebookArt'
 import { PhoneArt } from '../objects/PhoneArt'
 import { BallArt, RacketArt } from '../objects/TennisArt'
@@ -13,21 +14,46 @@ import { Hint } from './Hint'
 import { cartridgeSpots, layout } from './layout'
 import './desk.css'
 
+export type LaptopControl = {
+  phase: LidPhase
+  screenRef: RefObject<HTMLSpanElement | null>
+  lidRef: RefObject<HTMLSpanElement | null>
+  buttonRef: RefObject<HTMLButtonElement | null>
+  onOpen: () => void
+  onOpened: () => void
+  onClosed: () => void
+}
+
 type Props = {
   open: (path: string) => void
+  laptop: LaptopControl
   insertedId: string
   showHint: boolean
   inert: boolean
 }
 
-export function Desk({ open, insertedId, showHint, inert }: Props) {
+export function Desk({ open, laptop, insertedId, showHint, inert }: Props) {
   const inserted = projects.find((p) => p.id === insertedId)!
   return (
     <main className="desk" inert={inert}>
       <h1 className="visually-hidden">Seif Omara: the desk</h1>
       <div className="desk__stage">
-        <DeskObject label={deskObjects.laptop.label} place={layout.laptop} photo={deskObjects.laptop.photo} onActivate={() => open('os')}>
-          <LaptopLid />
+        <DeskObject
+          ref={laptop.buttonRef}
+          label={deskObjects.laptop.label}
+          place={layout.laptop}
+          photo={deskObjects.laptop.photo}
+          className={`laptop-obj ${laptop.phase === 'closed' ? '' : 'is-open'}`}
+          onActivate={laptop.onOpen}
+        >
+          <LaptopModel
+            phase={laptop.phase}
+            straighten={-(layout.laptop.wide.r ?? 0)}
+            screenRef={laptop.screenRef}
+            lidRef={laptop.lidRef}
+            onOpened={laptop.onOpened}
+            onClosed={laptop.onClosed}
+          />
         </DeskObject>
 
         <DeskObject label={deskObjects.coffee.label} place={layout.coffee} photo={deskObjects.coffee.photo} hit={{ inset: '10.4% 10.4% 8% 8%', round: true }} onActivate={() => open('coffee')}>

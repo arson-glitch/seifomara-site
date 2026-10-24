@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties, ReactNode, Ref } from 'react'
 import { ObjectArt } from './ObjectArt'
 import { placeVars, type Placement } from './layout'
 
@@ -9,6 +9,7 @@ import { placeVars, type Placement } from './layout'
 export type Hit = { inset?: string; round?: boolean }
 
 type Props = {
+  ref?: Ref<HTMLButtonElement>
   label: string
   place: Placement
   onActivate: () => void
@@ -19,9 +20,10 @@ type Props = {
 }
 
 /** Anything you can pick up. Always a real <button>: focusable, labelled, at least 44px. */
-export function DeskObject({ label, place, onActivate, photo, hit, className = '', children }: Props) {
+export function DeskObject({ ref, label, place, onActivate, photo, hit, className = '', children }: Props) {
   return (
     <button
+      ref={ref}
       type="button"
       className={`desk-obj ${className}`}
       style={placeVars(place) as CSSProperties}

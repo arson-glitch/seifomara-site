@@ -107,3 +107,29 @@ export function LaptopLid() {
     </svg>
   )
 }
+
+/** The keyboard deck, seen when the lid is open. Hinge at the bottom, so the keys sit upside down to us. */
+export function LaptopDeck() {
+  const id = useId()
+  const rows = [14, 14, 14, 13, 12]
+  return (
+    <svg viewBox="0 0 520 358" className="art" aria-hidden="true">
+      <defs>
+        <linearGradient id={`${id}d`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#cfd3d5" />
+          <stop offset="1" stopColor="#9fa4a8" />
+        </linearGradient>
+      </defs>
+      <path d={LID} fill={`url(#${id}d)`} />
+      <rect x="174" y="30" width="172" height="108" rx="10" fill="#b4b8bb" stroke="#9a9fa3" />
+      <rect x="34" y="160" width="452" height="170" rx="8" fill="#9ea3a7" />
+      {rows.map((n, r) => {
+        const w = (436 - (n - 1) * 5) / n
+        return Array.from({ length: n }, (_, i) => (
+          <rect key={`${r}-${i}`} x={42 + i * (w + 5)} y={168 + r * 32} width={w} height="27" rx="4" fill="#26282c" />
+        ))
+      })}
+      <rect x="0" y="336" width="520" height="22" fill="#7b8085" />
+    </svg>
+  )
+}
