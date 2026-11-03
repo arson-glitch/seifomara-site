@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import LogList from '../components/LogList.astro';
+import { Content as Intro, rawContent as introText } from '../content/intro.md';
+import { Content as Now } from '../content/now.md';
+import { getPosts, getProjects, hasCv } from '../lib/site';
+
+const featured = (await getProjects()).filter((p) => p.data.featured).slice(0, 3);
+const posts = (await getPosts()).slice(0, 3);
+const description = introText().replace(/\s+/g, ' ').trim();
+---
+<Base description={description}>
+  <section class="hero">
+    <h1>Seif Omara</h1>
+    <div class="intro"><Intro /></div>
+    <div class="now"><span class="eyebrow">Now</span><Now /></div>
+    <p class="actions">
+      <a class="button to-projects" href="/projects">See projects</a>
+      {hasCv && <a class="button" href="/cv.pdf" download>Download CV</a>}
+    </p>
+  </section>
+
+  <section aria-labelledby="featured">
+    <div class="section-head">
+      <h2 id="featured">Projects</h2>
+      <a href="/projects">All projects</a>
+    </div>
+    <ProjectGrid projects={featured} />
+  </section>
+
+  {posts.length > 0 && (
+    <section aria-labelledby="latest">
+      <div class="section-head">
+        <h2 id="latest">Latest log</h2>
+        <a href="/log">All posts</a>
+      </div>
+      <LogList posts={posts} />
+    </section>
+  )}
+</Base>
+
+<style>
+  .hero { padding-top: 1.5rem; max-width: var(--measure); }
+  .intro :global(p) { font-size: 1.2rem; line-height: 1.55; }
+  .now {
+    display: flex; gap: 0.75rem; align-items: baseline;
+    padding-left: 0.9rem; border-left: 3px solid var(--accent-soft); margin: 1.25rem 0;
+  }
+  .now :global(p) { margin: 0; color: var(--muted); }
+  .now .eyebrow { color: var(--accent); flex: none; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  @media (max-width: 719px) {
+    .hero { padding-top: 0.5rem; }
+    .intro :global(p) { font-size: 1.1rem; }
+    .to-projects { display: none; }
+    .actions { margin-top: 1rem; }
+    .section-head { margin-top: 2rem; }
+  }
+</style>

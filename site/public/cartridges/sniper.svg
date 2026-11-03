@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82 89.5" width="164" height="179">
+  <defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.22"/><stop offset="1" stop-color="#000" stop-opacity="0.12"/></linearGradient></defs>
+  <path d="M4 0 H70 L82 12 V85.5 a4 4 0 0 1 -4 4 H4 a4 4 0 0 1 -4 -4 V4 a4 4 0 0 1 4 -4 Z" fill="#8E8A80"/>
+  <path d="M4 0 H70 L82 12 V85.5 a4 4 0 0 1 -4 4 H4 a4 4 0 0 1 -4 -4 V4 a4 4 0 0 1 4 -4 Z" fill="url(#s)"/>
+  <g stroke="#00000033" stroke-width="1.5"><line x1="10" y1="6" x2="62" y2="6"/><line x1="10" y1="10" x2="62" y2="10"/><line x1="10" y1="14" x2="62" y2="14"/></g>
+  <rect x="8" y="21" width="66" height="61" rx="3" fill="#f3ecdc"/>
+  <g>
+    <rect x="12" y="26" width="58" height="40" fill="#d8d3c8"/>
+    <path d="M14 36 L22 33 L28 41 L35 38 L42 48 L50 46 L58 57 L68 60" fill="none" stroke="#a9a397" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="41" cy="46" r="11" fill="none" stroke="#2a1f17" stroke-width="1.6"/>
+    <circle cx="41" cy="46" r="5" fill="none" stroke="#2a1f17" stroke-width="1"/>
+    <path d="M41 31 v8 M41 53 v8 M26 46 h8 M48 46 h8" stroke="#2a1f17" stroke-width="1.6"/>
+    <circle cx="41" cy="46" r="1.3" fill="#b8582e"/>
+  </g>
+  <path d="M22.3 71.5h3.3v1.1h-3.3zM22.3 72.6h1.1v1.1h-1.1zM25.6 72.6h1.1v1.1h-1.1zM22.3 73.7h3.3v1.1h-3.3zM22.3 74.8h1.1v1.1h-1.1zM24.5 74.8h1.1v1.1h-1.1zM22.3 75.9h1.1v1.1h-1.1zM25.6 75.9h1.1v1.1h-1.1zM27.8 71.5h4.4v1.1h-4.4zM27.8 72.6h1.1v1.1h-1.1zM27.8 73.7h3.3v1.1h-3.3zM27.8 74.8h1.1v1.1h-1.1zM27.8 75.9h4.4v1.1h-4.4zM33.3 71.5h5.5v1.1h-5.5zM35.5 72.6h1.1v1.1h-1.1zM35.5 73.7h1.1v1.1h-1.1zM35.5 74.8h1.1v1.1h-1.1zM35.5 75.9h1.1v1.1h-1.1zM39.9 71.5h3.3v1.1h-3.3zM41 72.6h1.1v1.1h-1.1zM41 73.7h1.1v1.1h-1.1zM41 74.8h1.1v1.1h-1.1zM39.9 75.9h3.3v1.1h-3.3zM44.3 71.5h3.3v1.1h-3.3zM44.3 72.6h1.1v1.1h-1.1zM47.6 72.6h1.1v1.1h-1.1zM44.3 73.7h3.3v1.1h-3.3zM44.3 74.8h1.1v1.1h-1.1zM46.5 74.8h1.1v1.1h-1.1zM44.3 75.9h1.1v1.1h-1.1zM47.6 75.9h1.1v1.1h-1.1zM49.8 71.5h4.4v1.1h-4.4zM49.8 72.6h1.1v1.1h-1.1zM49.8 73.7h3.3v1.1h-3.3zM49.8 74.8h1.1v1.1h-1.1zM49.8 75.9h4.4v1.1h-4.4zM55.3 71.5h3.3v1.1h-3.3zM55.3 72.6h1.1v1.1h-1.1zM58.6 72.6h1.1v1.1h-1.1zM55.3 73.7h1.1v1.1h-1.1zM58.6 73.7h1.1v1.1h-1.1zM55.3 74.8h1.1v1.1h-1.1zM58.6 74.8h1.1v1.1h-1.1zM55.3 75.9h3.3v1.1h-3.3z" fill="#2a1f17"/>
+</svg>

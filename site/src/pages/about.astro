@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content as Bio } from '../content/about.md';
+import { config } from '../config';
+import { hasCv } from '../lib/site';
+
+// open.spotify.com/playlist/<id>?si=... -> open.spotify.com/embed/playlist/<id>
+const spotify = config.spotifyPlaylistUrl
+  ? config.spotifyPlaylistUrl.replace('open.spotify.com/', 'open.spotify.com/embed/').split('?')[0]
+  : '';
+---
+<Base title="About" description="About Seif Omara, contact and CV.">
+  <h1>About</h1>
+  <div class="prose"><Bio /></div>
+
+  {spotify && (
+    <section aria-labelledby="listening">
+      <h2 id="listening">What I'm listening to</h2>
+      <iframe
+        title="Spotify playlist"
+        src={spotify}
+        width="100%"
+        height="352"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      ></iframe>
+    </section>
+  )}
+
+  <section aria-labelledby="contact">
+    <h2 id="contact">Contact</h2>
+    <ul class="contact">
+      <li><span>Email</span><a href={`mailto:${config.email}`}>{config.email}</a></li>
+      <li><span>LinkedIn</span><a href={config.linkedin}>linkedin.com/in/seif-omara</a></li>
+      <li><span>GitHub</span><a href={config.github}>github.com/arson-glitch</a></li>
+    </ul>
+    {hasCv && <p><a class="button" href="/cv.pdf" download>Download CV (PDF)</a></p>}
+  </section>
+</Base>
+
+<style>
+  iframe { border: 0; border-radius: 12px; max-width: var(--measure); display: block; }
+  .contact { list-style: none; padding: 0; margin: 0 0 1.5rem; max-width: var(--measure); }
+  .contact li { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); }
+  .contact span { color: var(--muted); font-weight: 700; font-size: 0.95rem; }
+</style>

@@ -1,0 +1,41 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDay, getPosts } from '../../lib/site';
+
+export async function getStaticPaths() {
+  return (await getPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { title, date, tags, image } = post.data;
+const { Content } = await render(post);
+// First ~155 chars of the post as plain text, skipping unfinished [TO ADD] lines.
+const description =
+  (post.body ?? '')
+    .split('\n')
+    .filter((line) => !line.includes('[TO ADD'))
+    .join(' ')
+    .replace(/[#*_>`\[\]()]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 155) || title;
+---
+<Base title={title} description={description} ogImage={image} type="article">
+  <article class="prose">
+    <p class="meta">
+      <time datetime={date.toISOString().slice(0, 10)}>{formatDay(date)}</time>
+      {tags.length > 0 && <span> · {tags.join(', ')}</span>}
+    </p>
+    <h1>{title}</h1>
+    {image && <img src={image} alt="" loading="lazy" decoding="async" />}
+    <Content />
+  </article>
+  <p class="back"><a href="/log">All posts</a></p>
+</Base>
+
+<style>
+  .meta { color: var(--muted); font-size: 0.9rem; padding-top: 1rem; margin-bottom: 0.5rem; }
+  img { border-radius: 8px; margin: 1rem 0 1.5rem; }
+  .back { margin-top: 3rem; }
+</style>

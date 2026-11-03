@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props { projects: CollectionEntry<'projects'>[]; headingLevel?: 'h2' | 'h3' }
+const { projects, headingLevel } = Astro.props;
+---
+<div class="grid">
+  {projects.map((project) => <ProjectCard project={project} headingLevel={headingLevel} />)}
+</div>
+
+<style>
+  .grid { display: grid; gap: 1rem; }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

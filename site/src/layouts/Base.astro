@@ -1,0 +1,92 @@
+---
+import '../styles/global.css';
+import { config } from '../config';
+import { fontCss, preload } from '../lib/fonts';
+
+interface Props {
+  title?: string;
+  description: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+}
+const { title, description, ogImage = '/og/default.png', type = 'website' } = Astro.props;
+const fullTitle = title ? `${title} · ${config.name}` : config.name;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = new URL(ogImage, Astro.site);
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/log', label: 'Log' },
+  { href: '/about', label: 'About' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171411" media="(prefers-color-scheme: dark)" />
+    {preload.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
+    <style is:inline set:html={fontCss} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={config.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+  </head>
+  <body>
+    <a class="sr-only skip" href="#main">Skip to content</a>
+    <header class="wrap site-header">
+      <a class="brand" href="/" aria-current={path === '/' ? 'page' : undefined}>{config.name}</a>
+      <nav aria-label="Main">
+        {nav.map((item) => (
+          <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+    </header>
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <footer class="wrap site-footer">
+      <a href={`mailto:${config.email}`}>{config.email}</a>
+      <a href={config.linkedin}>LinkedIn</a>
+      <a href={config.github}>GitHub</a>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip:focus { position: static; width: auto; height: auto; clip: auto; display: block; padding: 0.5rem var(--gutter); }
+  .site-header {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 0.5rem 1.25rem; padding-top: 1.25rem; padding-bottom: 1.25rem;
+  }
+  .brand {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+    color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+  }
+  nav { display: flex; gap: 1.1rem; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 1rem; }
+  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
+  nav a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--accent-soft); text-decoration-thickness: 2px; }
+  main { padding-bottom: 4rem; min-height: 60vh; }
+  .site-footer {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+    padding-top: 1.5rem; padding-bottom: 2.5rem; border-top: 1px solid var(--rule); font-size: 0.95rem;
+  }
+  .site-footer a { color: var(--muted); }
+  .site-footer a:hover { color: var(--accent); }
+</style>

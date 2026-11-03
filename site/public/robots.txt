@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seifomara.com/sitemap-index.xml

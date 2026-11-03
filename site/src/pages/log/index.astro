@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogList from '../../components/LogList.astro';
+import { getPosts } from '../../lib/site';
+
+const posts = await getPosts();
+---
+<Base title="Log" description="Weekly posts by Seif Omara.">
+  <h1>Log</h1>
+  {posts.length > 0 ? <LogList posts={posts} /> : <p class="empty">First post coming soon.</p>}
+</Base>
+
+<style>
+  .empty { color: var(--muted); }
+</style>

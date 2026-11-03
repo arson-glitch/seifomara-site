@@ -1,0 +1,18 @@
+---
+interface Props { status: string }
+const { status } = Astro.props;
+const tone = { Shipped: 'ok', 'Built, launching soon': 'soon', 'In progress': 'wip', Retired: 'off' }[status] ?? 'wip';
+---
+<span class={`pill ${tone}`}>{status}</span>
+
+<style>
+  .pill {
+    display: inline-flex; align-items: center; gap: 0.45em;
+    font-size: 0.8rem; font-weight: 700; color: var(--muted); white-space: nowrap;
+  }
+  .pill::before { content: ''; width: 0.55em; height: 0.55em; border-radius: 50%; background: currentColor; }
+  .ok::before { background: #4f7a3a; }
+  .soon::before { background: var(--accent-soft); }
+  .wip::before { background: #3f6b80; }
+  .off::before { background: #8e8a80; }
+</style>

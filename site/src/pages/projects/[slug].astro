@@ -1,0 +1,81 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import StatusPill from '../../components/StatusPill.astro';
+import { formatMonth, getProjects } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, prev: projects[i - 1], next: projects[i + 1] },
+  }));
+}
+
+const { project, prev, next } = Astro.props;
+const { title, tagline, status, date, stack, thumbnail, links } = project.data;
+const { Content } = await render(project);
+const linkList = [
+  links.live && { href: links.live, label: 'Live site' },
+  links.demo && { href: links.demo, label: 'Demo' },
+  links.github && { href: links.github, label: 'GitHub' },
+].filter((l): l is { href: string; label: string } => Boolean(l));
+---
+<Base title={title} description={tagline} ogImage={`/og/${project.id}.png`} type="article">
+  <article>
+    <header class="head">
+      <img src={thumbnail} alt="" width="164" height="179" />
+      <div>
+        <p class="meta"><StatusPill status={status} /><span aria-hidden="true">·</span><time datetime={date.toISOString().slice(0, 10)}>{formatMonth(date)}</time></p>
+        <h1>{title}</h1>
+        <p class="tagline">{tagline}</p>
+      </div>
+    </header>
+
+    <dl class="facts">
+      <dt>Stack</dt>
+      <dd>{stack.join(' · ')}</dd>
+      {linkList.length > 0 && (
+        <>
+          <dt>Links</dt>
+          <dd class="links">{linkList.map((l) => <a href={l.href}>{l.label}</a>)}</dd>
+        </>
+      )}
+    </dl>
+
+    <div class="prose"><Content /></div>
+  </article>
+
+  <nav class="pager" aria-label="More projects">
+    {prev ? <a href={`/projects/${prev.id}`}><span class="eyebrow">Previous</span>{prev.data.title}</a> : <span />}
+    {next && <a class="next" href={`/projects/${next.id}`}><span class="eyebrow">Next</span>{next.data.title}</a>}
+  </nav>
+</Base>
+
+<style>
+  .head { display: grid; grid-template-columns: 72px 1fr; gap: 1rem; align-items: start; padding-top: 1rem; max-width: 52rem; }
+  .head img { width: 72px; }
+  .head h1 { margin-bottom: 0.25em; }
+  .meta { display: flex; gap: 0.5rem; align-items: center; margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  .tagline { font-size: 1.15rem; color: var(--muted); margin: 0; max-width: 46ch; }
+  .facts {
+    display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.4rem 1rem; margin: 1.75rem 0 0;
+    padding: 1rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem; max-width: var(--measure);
+  }
+  dt { font-weight: 700; color: var(--muted); }
+  dd { margin: 0; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; }
+  .prose :global(h2:first-child) { margin-top: 1.5em; }
+  .pager {
+    display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem;
+    padding-top: 1.25rem; border-top: 1px solid var(--rule); max-width: var(--measure);
+  }
+  .pager a { display: grid; color: var(--text); font-weight: 700; text-decoration: none; }
+  .pager a:hover { color: var(--accent); }
+  .pager .next { text-align: right; margin-left: auto; }
+  @media (min-width: 720px) {
+    .head { grid-template-columns: 132px 1fr; gap: 1.75rem; align-items: center; }
+    .head img { width: 132px; }
+  }
+</style>

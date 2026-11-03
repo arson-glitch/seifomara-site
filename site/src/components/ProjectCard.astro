@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import StatusPill from './StatusPill.astro';
+
+interface Props { project: CollectionEntry<'projects'>; headingLevel?: 'h2' | 'h3' }
+const { project, headingLevel: H = 'h3' } = Astro.props;
+const { title, tagline, status, stack, thumbnail } = project.data;
+---
+<article class="card">
+  <img src={thumbnail} alt="" width="164" height="179" loading="lazy" decoding="async" />
+  <div class="body">
+    <StatusPill status={status} />
+    <H class="title"><a href={`/projects/${project.id}`}>{title}</a></H>
+    <p class="tagline">{tagline}</p>
+    <p class="stack">{stack.join(' · ')}</p>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid; grid-template-columns: 84px 1fr; gap: 1rem; align-items: start; align-content: start;
+    padding: 1rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent-soft); }
+  .card:focus-within { border-color: var(--accent-soft); }
+  img { width: 84px; }
+  .title { font-size: 1.25rem; margin: 0.3rem 0 0.35rem; }
+  .title a { color: var(--text); text-decoration: none; }
+  .title a::after { content: ''; position: absolute; inset: 0; border-radius: 12px; }
+  .tagline { margin: 0 0 0.6rem; font-size: 1rem; line-height: 1.5; }
+  .stack { margin: 0; font-size: 0.85rem; color: var(--muted); line-height: 1.45; }
+  @media (min-width: 720px) {
+    .card { grid-template-columns: 1fr; padding: 1.25rem; }
+    img { width: 120px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card { transition: none; }
+    .card:hover { transform: none; }
+  }
+</style>

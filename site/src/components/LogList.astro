@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDay } from '../lib/site';
+
+interface Props { posts: CollectionEntry<'log'>[] }
+const { posts } = Astro.props;
+---
+<ul class="log">
+  {posts.map((post) => (
+    <li>
+      <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDay(post.data.date)}</time>
+      <a href={`/log/${post.id}`}>{post.data.title}</a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .log { list-style: none; padding: 0; margin: 0; max-width: var(--measure); }
+  li { display: grid; gap: 0.1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); }
+  time { font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  a { color: var(--text); font-weight: 700; text-decoration: none; }
+  a:hover { color: var(--accent); }
+  @media (min-width: 720px) { li { grid-template-columns: 9rem 1fr; align-items: baseline; } }
+</style>

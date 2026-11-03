@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { getProjects } from '../../lib/site';
+
+const projects = await getProjects();
+---
+<Base title="Projects" description="Projects by Seif Omara.">
+  <h1>Projects</h1>
+  <ProjectGrid projects={projects} headingLevel="h2" />
+</Base>
