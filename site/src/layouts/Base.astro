@@ -68,6 +68,15 @@ const nav = [
   </body>
 </html>
 
+<script>
+  // Smooth wheel scrolling. Touch stays native, and Lenis turns smoothing off
+  // under prefers-reduced-motion (respectReducedMotion defaults to true).
+  import 'lenis/dist/lenis.css';
+  import Lenis from 'lenis';
+
+  new Lenis({ autoRaf: true, anchors: true, stopInertiaOnNavigate: true });
+</script>
+
 <style>
   .skip:focus { position: static; width: auto; height: auto; clip: auto; display: block; padding: 0.5rem var(--gutter); }
   .site-header {

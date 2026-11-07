@@ -11,7 +11,8 @@
   Anything marked [TO ADD] stays off the site and goes in site/TODO.md with the file it belongs to.
   The build fails if [TO ADD] reaches dist/.
 - Design: calm and readable. Warm off-white, near-black text, clay accent; dark mode via prefers-color-scheme.
-  Cartridge illustrations are the only decoration. No animations except subtle hover. No client JS unless needed.
+  Cartridge illustrations are the only decoration. No animations except subtle hover
+  and Lenis smooth wheel scroll (in Base.astro; touch stays native, off under reduced motion). No other client JS unless needed.
 - Must work at 375px and 390px, respect prefers-reduced-motion, and load fast (Lighthouse mobile ≥ 95).
   No heavy 3D or large libraries without asking me.
 - Before calling anything done: `npm run build` with zero warnings, then open it with the Playwright browser
